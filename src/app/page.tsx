@@ -17,18 +17,16 @@ export default function Home() {
           <span className="text-sm text-slate-500">by KOAH Labs</span>
         </div>
         <div>
-          We are on a mission to build AI-native advertising for the next
-          generation of AI applications.
+          We make ads more relevant for AI native users.
           <br />
           <br />
-          To you, the AI application company, do you want to provide your users
-          with the best ad experience possible? To you, the advertisers, do you
-          want to reach the most engaged users with your message?
+          We help elevate brands in the context of AI responses, whether they be
+          text, image, or video.
         </div>
         <button className="flex rounded-full font-medium transition-colors items-center justify-center bg-foreground text-background gap-4 hover:bg-[#383838] dark:hover:bg-[#ccc] h-12 px-8 sm:w-fit">
           <a
             className=""
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="mailto:team@koahlabs.com"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -41,19 +39,22 @@ export default function Home() {
         <div className="flex flex-col gap-2">
           <div className="font-semibold">How does it work?</div>
           <span>
-            AI applications are the new frontier for advertising. No more
-            visually distracting banner ads and pop-ups. Instead, MadLad ads
-            feel like a natural part of the application. Result is a more
-            engaging experience for users and more effective ads for
-            advertisers.
+            MadLad ads are nested in the LLM response. We take the context of
+            the query or conversation & make sure the brand&apos;s mention is
+            highly relevant to the user&apos;s current interaction with the
+            application.
+            <br />
+            <br />
+            MadLad ads feel natural. They don&apos;t look like ads, they look
+            like responses. The result is a more streamlined experience for the
+            user, and a better outcome for the advertiser.
           </span>
         </div>
 
         <div className="flex flex-col gap-2">
           <div className="font-semibold">Who are we?</div>
           <span>
-            We are a team of engineers, designers, and thinkers creating the
-            next generation ad platforms for AI applications.
+            We are a team of engineers, designers and thinkers.
             <br />
             <br />
             We are based in San Francisco and are backed by South Park Commons.
