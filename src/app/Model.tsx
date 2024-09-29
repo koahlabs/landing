@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 import { Text } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
-export default function Model(props) {
-  const textRef = useRef();
+export default function Model() {
+  const textRef = useRef<{ rotation: { y: number } }>();
 
   useFrame(() => {
     if (textRef.current) {
@@ -12,14 +12,8 @@ export default function Model(props) {
   });
 
   return (
-    <group {...props}>
-      <Text
-        ref={textRef}
-        position={[0, 0, 0]}
-        fontSize={8}
-        textAlign="center"
-        // font="fonts/GeistMonoVF.woff"
-      >
+    <group>
+      <Text ref={textRef} position={[0, 0, 0]} fontSize={8} textAlign="center">
         Madlad
       </Text>
     </group>
