@@ -7,7 +7,7 @@ export default function Model(props) {
 
   useFrame(() => {
     if (textRef.current) {
-      textRef.current.rotation.y += 0.0005;
+      textRef.current.rotation.y += 0.0008;
     }
   });
 

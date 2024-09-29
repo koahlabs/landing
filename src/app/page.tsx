@@ -9,20 +9,22 @@ import useDarkMode from "./darkmode";
 export default function Home() {
   const isDarkMode = useDarkMode();
   return (
-    <div className="flex flex-col items-center justify-items-center font-[family-name:var(--font-geist-sans)] overflow-y-auto mt-10">
+    <div className="flex flex-col items-center justify-items-center font-[family-name:var(--font-geist-sans)] overflow-y-auto mt-10 px-4">
       <main className="flex flex-col gap-10 max-w-xl">
         <div>
           <div className="text-2xl font-medium">MadLad</div>
           <span className="text-sm text-slate-500">by KOAH Labs</span>
         </div>
         <div>
-          We believe ads need to be optimized for the AI era and we are on a
-          mission to change that. To you, the AI application company, do you
-          want to provide your users with the best ad experience possible? To
-          you, the advertisers, do you want to reach the most engaged users with
-          your message?
+          We are on a mission to build AI-native advertising for the next
+          generation of AI applications.
+          <br />
+          <br />
+          To you, the AI application company, do you want to provide your users
+          with the best ad experience possible? To you, the advertisers, do you
+          want to reach the most engaged users with your message?
         </div>
-        <button className="flex rounded-full border transition-colors items-center justify-center bg-foreground text-background gap-4 hover:bg-[#383838] dark:hover:bg-[#ccc] h-12 px-8 sm:w-fit">
+        <button className="flex rounded-full font-medium transition-colors items-center justify-center bg-foreground text-background gap-4 hover:bg-[#383838] dark:hover:bg-[#ccc] h-12 px-8 sm:w-fit">
           <a
             className=""
             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
@@ -38,10 +40,11 @@ export default function Home() {
         <div className="flex flex-col gap-2">
           <div className="font-semibold">How does it work?</div>
           <span>
-            AI applications are a new frontier for advertising. No more visually
-            distracting banner ads and pop-ups. Instead, ads from MadLad feel
-            like a natural part of the application. Result is a more engaging
-            experience for users and more effective ads for advertisers.
+            AI applications are the new frontier for advertising. No more
+            visually distracting banner ads and pop-ups. Instead, MadLad ads
+            feel like a natural part of the application. Result is a more
+            engaging experience for users and more effective ads for
+            advertisers.
           </span>
         </div>
 
@@ -73,21 +76,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="flex flex-col items-center justify-between w-full max-w-xl my-12 gap-10">
-        <div className="w-full my-12">
-          <Canvas camera={{ position: [0, 0, 6] }}>
-            <Suspense fallback={null}>
-              <color attach="background" args={["#000"]} />
-              <Model />
-            </Suspense>
-            <OrbitControls />
-            {isDarkMode ? (
-              <AsciiRenderer fgColor="white" bgColor="#0a0a0a" />
-            ) : (
-              <AsciiRenderer fgColor="black" bgColor="white" />
-            )}
-          </Canvas>
-        </div>
+      <footer className="flex flex-col items-center justify-between w-full max-w-xl mt-12 gap-10 text-slate-500">
         <div className="flex items-center justify-between w-full">
           <span className="flex items-center gap-2 hover:underline hover:underline-offset-4">
             KOAH Labs 2024 — San Francisco
@@ -114,6 +103,20 @@ export default function Home() {
               CONTACT
             </a>
           </div>
+        </div>
+        <div className="w-screen h-60">
+          <Canvas camera={{ position: [0, 0, 6] }}>
+            <Suspense fallback={null}>
+              <color attach="background" args={["#000"]} />
+              <Model />
+            </Suspense>
+            <OrbitControls />
+            {isDarkMode ? (
+              <AsciiRenderer fgColor="white" bgColor="#0a0a0a" />
+            ) : (
+              <AsciiRenderer fgColor="black" bgColor="white" />
+            )}
+          </Canvas>
         </div>
       </footer>
     </div>
