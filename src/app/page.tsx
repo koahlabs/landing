@@ -1,6 +1,13 @@
+"use client";
 import { ArrowRightCircle } from "lucide-react";
+import { Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
+import { AsciiRenderer, OrbitControls } from "@react-three/drei";
+import Model from "./Model";
+import useDarkMode from "./darkmode";
 
 export default function Home() {
+  const isDarkMode = useDarkMode();
   return (
     <div className="flex flex-col items-center justify-items-center font-[family-name:var(--font-geist-sans)] overflow-y-auto mt-10">
       <main className="flex flex-col gap-10 max-w-xl">
@@ -66,7 +73,21 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="flex flex-col items-center justify-between w-full max-w-xl mt-12">
+      <footer className="flex flex-col items-center justify-between w-full max-w-xl my-12 gap-10">
+        <div className="w-full my-12">
+          <Canvas camera={{ position: [0, 0, 6] }}>
+            <Suspense fallback={null}>
+              <color attach="background" args={["#000"]} />
+              <Model />
+            </Suspense>
+            <OrbitControls />
+            {isDarkMode ? (
+              <AsciiRenderer fgColor="white" bgColor="#0a0a0a" />
+            ) : (
+              <AsciiRenderer fgColor="black" bgColor="white" />
+            )}
+          </Canvas>
+        </div>
         <div className="flex items-center justify-between w-full">
           <span className="flex items-center gap-2 hover:underline hover:underline-offset-4">
             KOAH Labs 2024 — San Francisco
