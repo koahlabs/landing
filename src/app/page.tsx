@@ -8,6 +8,7 @@ import useDarkMode from "./darkmode";
 
 export default function Home() {
   const isDarkMode = useDarkMode();
+
   return (
     <div className="flex flex-col items-center justify-items-center font-[family-name:var(--font-geist-sans)] overflow-y-auto mt-10 px-4">
       <main className="flex flex-col gap-10 max-w-xl">
