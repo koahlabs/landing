@@ -19,29 +19,23 @@ export default function Home() {
 
   const sendSlackMessage = async () => {
     setIsLoading(true);
-    const slackWebhookUrl = process.env.SLACK_WEBHOOK_URL; 
-
-    if (!slackWebhookUrl) {
-      toast.error("Please contact us at team@koahlabs.com");
-      setIsLoading(false);
-      return;
-    }
 
     try {
-      const response = await fetch(slackWebhookUrl, {
+      const response = await fetch("/api/slack", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ text: email }),
+        body: JSON.stringify({ email }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send message to Slack");
+        throw new Error("Failed to send message");
       }
+
       toast.success("Our team will get back to you soon.");
     } catch (error) {
-      console.error("Error sending message to Slack:", error);
+      console.error("Error sending message:", error);
       toast.error("Please try again later.");
     }
 
@@ -191,10 +185,12 @@ export default function Home() {
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent aria-describedby="request-demo-dialog-description">
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            sendSlackMessage();
-          }}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              sendSlackMessage();
+            }}
+          >
             <div className="flex flex-col gap-6">
               <div className="flex flex-col">
                 <DialogTitle>See how MadLad works</DialogTitle>
