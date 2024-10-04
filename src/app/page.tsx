@@ -23,6 +23,7 @@ export default function Home() {
 
     if (!slackWebhookUrl) {
       toast.error("Please contact us at team@koahlabs.com");
+      setIsLoading(false);
       return;
     }
 
