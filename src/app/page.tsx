@@ -6,7 +6,7 @@ import { Canvas } from "@react-three/fiber";
 import { AsciiRenderer, OrbitControls } from "@react-three/drei";
 import Model from "./Model";
 import useDarkMode from "./darkmode";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
