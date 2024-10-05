@@ -69,16 +69,9 @@ export default function Home() {
             className="flex rounded-lg font-medium transition-colors items-center justify-center
               bg-gradient-to-b from-[#2564EB] to-[#3B81F5] text-background gap-4 hover:from-[#1346C2] hover:to-[#2A6AD8] dark:hover:from-[#999] dark:hover:to-[#aaa] 
               h-10 px-4 sm:w-fit border border-[#1E4EBB]"
+            onClick={() => setIsOpen(true)}
           >
-            <a
-              className=""
-              href="mailto:team@koahlabs.com?subject=Advertiser%20Inquiry"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              For Advertisers
-            </a>
-
+            For Advertisers
             <Megaphone size={16} />
           </button>
         </div>
@@ -194,7 +187,7 @@ export default function Home() {
             <div className="flex flex-col gap-6">
               <div className="flex flex-col">
                 <DialogTitle>See how MadLad works</DialogTitle>
-                <span className="text-slate-500">
+                <span className="text-slate-500 mt-1">
                   Request a demo to check out MadLad in action
                 </span>
               </div>
