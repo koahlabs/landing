@@ -14,22 +14,6 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
 function Carousel() {
-  // const [width, setWidth] = useState(700);
-  // const [height, setHeight] = useState(500);
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     const isMobile = window.innerWidth < 768;
-  //     setWidth(isMobile ? 350 : 700);
-  //     setHeight(isMobile ? 250 : 500);
-  //   };
-
-  //   handleResize(); // Set initial size
-  //   window.addEventListener("resize", handleResize);
-
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
   return (
     <Marquee style={{ width: "100%" }}>
       {[
@@ -178,7 +162,7 @@ export default function Home() {
 
         <div className="flex flex-col gap-8 max-w-xl w-full">
           <div className="font-medium text-3xl">
-            Ads that feel like part of the conversation.
+            Ads that feel like a part of the conversation.
           </div>
           <span>
             MadLad ads feel natural. They don&apos;t look like ads, they look
