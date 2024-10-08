@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Marquee from "react-fast-marquee";
 import Image from "next/image";
 
-export function Carousel() {
+function Carousel() {
   const [width, setWidth] = useState(700);
   const [height, setHeight] = useState(500);
 
