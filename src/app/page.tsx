@@ -11,6 +11,7 @@ import { useTheme } from "next-themes";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 function Carousel() {
   // const [width, setWidth] = useState(700);
@@ -88,6 +89,7 @@ function ChatBubble({
 
 export default function Home() {
   const { systemTheme } = useTheme();
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
 
   const [currentWord, setCurrentWord] = useState("text");
@@ -104,6 +106,7 @@ export default function Home() {
   }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    setIsLoading(true);
     e.preventDefault();
 
     if (email) {
@@ -125,6 +128,8 @@ export default function Home() {
         toast.error("Failed to subscribe to newsletter");
       }
     }
+
+    setIsLoading(false);
   }
 
   return (
@@ -289,8 +294,11 @@ export default function Home() {
               className="h-11"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              disabled={isLoading}
             />
-            <Button type="submit">Subscribe</Button>
+            <Button type="submit" disabled={isLoading} className="w-28">
+              {isLoading ? <Loader2 className="animate-spin" /> : "Subscribe"}
+            </Button>
           </form>
         </div>
       </main>
