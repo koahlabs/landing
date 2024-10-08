@@ -1,113 +1,226 @@
 "use client";
-import { useState } from "react";
-import { Loader2, Megaphone, Newspaper } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { AsciiRenderer, OrbitControls } from "@react-three/drei";
 import Model from "./Model";
-import useDarkMode from "./darkmode";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
+import { useTheme } from "next-themes";
+import { motion, AnimatePresence } from "framer-motion";
+import Marquee from "react-fast-marquee";
+import Image from "next/image";
+
+export function Carousel() {
+  const [width, setWidth] = useState(700);
+  const [height, setHeight] = useState(500);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth < 768;
+      setWidth(isMobile ? 350 : 700);
+      setHeight(isMobile ? 250 : 500);
+    };
+
+    handleResize(); // Set initial size
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <Marquee style={{ width: "100%" }}>
+      {[
+        { src: "/text.png", alt: "text", caption: "Integrated text ads" },
+        { src: "/image.png", alt: "image", caption: "Image based ads" },
+        {
+          src: "/recommendation.png",
+          alt: "recommendation",
+          caption: "Recommendation to nudge the user",
+        },
+        {
+          src: "/gallery.png",
+          alt: "gallery",
+          caption: "Context relevant carousel ads",
+        },
+      ].map((item, index) => (
+        <div key={index} className="flex flex-col items-start gap-1 ml-2">
+          <Image
+            src={item.src}
+            alt={item.alt}
+            width={width}
+            height={height}
+            style={{ width: width, height: height }}
+          />
+          <span className="text-muted-foreground text-sm sm:text-base">
+            {item.caption}
+          </span>
+        </div>
+      ))}
+    </Marquee>
+  );
+}
+
+function ChatBubble({
+  side,
+  content,
+}: {
+  side: "left" | "right";
+  content: React.ReactNode;
+}) {
+  return (
+    <div
+      className={`flex ${side === "left" ? "justify-start" : "justify-end"}`}
+    >
+      <div
+        className={`p-3 max-w-xs ${
+          side === "left"
+            ? "rounded-t-2xl rounded-br-2xl rounded-bl-sm bg-blue-500 text-white"
+            : "rounded-t-2xl rounded-bl-2xl rounded-br-sm bg-slate-200 text-black"
+        }`}
+      >
+        {content}
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
-  const isDarkMode = useDarkMode();
-  const [isOpen, setIsOpen] = useState(false);
-  const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const isDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const [currentWord, setCurrentWord] = useState("text");
 
-  const sendSlackMessage = async () => {
-    setIsLoading(true);
+  useEffect(() => {
+    let index = 0;
+    const words = ["text", "image", "video"];
+    const intervalId = setInterval(() => {
+      index = (index + 1) % words.length;
+      setCurrentWord(words[index]);
+    }, 2400);
 
-    try {
-      const response = await fetch("/api/slack", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to send message");
-      }
-
-      toast.success("Our team will get back to you soon.");
-    } catch (error) {
-      console.error("Error sending message:", error);
-      toast.error("Please try again later.");
-    }
-
-    setIsLoading(false);
-    setIsOpen(false);
-  };
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-items-center font-[family-name:var(--font-geist-sans)] overflow-y-auto mt-10 px-4">
-      <main className="flex flex-col gap-10 max-w-xl">
-        <div>
-          <div className="text-2xl font-medium">MadLad</div>
-          <span className="text-sm text-slate-500">by KOAH Labs</span>
-        </div>
-        <div>
-          We make ads more relevant for AI native users.
+      <main className="flex flex-col gap-20 justify-center items-center w-full">
+        <header className="flex items-center justify-center w-full fixed top-0 py-4 z-10 bg-card px-4 sm:px-0">
+          <div className="flex items-center gap-2 max-w-xl w-full justify-between">
+            <div className="text-2xl font-medium">MadLad</div>
+            <button className="rounded-full text-sm font-medium transition-colors bg-foreground text-accent hover:bg-[#383838] dark:hover:bg-[#ccc] h-8 px-4">
+              Get Started
+            </button>
+          </div>
+        </header>
+
+        <div className="flex flex-col justify-center mt-28 mb-12 max-w-xl w-full">
+          <h1 className="text-4xl font-medium">
+            Next-gen Ad Network for{" "}
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={currentWord}
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -20, opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="inline-block"
+              >
+                {currentWord}
+              </motion.span>
+            </AnimatePresence>
+            <br />
+            AI Applications
+          </h1>
           <br />
-          <br />
-          We help elevate brands in the context of AI responses, whether they be
-          text, image, or video.
-        </div>
-        <div className="flex gap-2 text-sm">
-          <button
-            className="flex rounded-lg font-medium transition-colors items-center justify-center bg-foreground text-background gap-4 hover:bg-[#383838] dark:hover:bg-[#ccc] h-10 px-4 sm:w-fit"
-            onClick={() => setIsOpen(true)}
-          >
-            For Publishers
-            <Newspaper size={16} />
-          </button>
-          <button
-            className="flex rounded-lg font-medium transition-colors items-center justify-center
-              bg-gradient-to-b from-[#2564EB] to-[#3B81F5] text-background gap-4 hover:from-[#1346C2] hover:to-[#2A6AD8] dark:hover:from-[#999] dark:hover:to-[#aaa] 
-              h-10 px-4 sm:w-fit border border-[#1E4EBB]"
-            onClick={() => setIsOpen(true)}
-          >
-            For Advertisers
-            <Megaphone size={16} />
-          </button>
+          <span className="text-lg">
+            Let&apos;s unlock a new chapter in advertising.
+          </span>
+
+          <div className="flex gap-2 text-sm mt-8">
+            <button className="flex rounded-full font-medium transition-colors items-center justify-center bg-foreground text-accent hover:bg-[#383838] dark:hover:bg-[#ccc] sm:h-10 h-8 px-4 sm:w-fit">
+              Get Started
+            </button>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <div className="font-semibold">How does it work?</div>
+        <Carousel />
+
+        <div className="flex flex-col gap-8 max-w-xl w-full">
+          <div className="font-medium text-3xl">
+            Ads that feel like part of the conversation.
+          </div>
           <span>
-            MadLad ads are nested in the LLM response. We take the context of
-            the query or conversation & make sure the brand&apos;s mention is
-            highly relevant to the user&apos;s current interaction with the
-            application.
-            <br />
-            <br />
             MadLad ads feel natural. They don&apos;t look like ads, they look
             like responses. The result is a more streamlined experience for the
             user, and a better outcome for the advertiser.
+            <br />
           </span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+            {[
+              {
+                icon: "💡",
+                title: "Seamless Integration",
+                description:
+                  "Ads blend naturally with AI responses, enhancing user experience.",
+              },
+              {
+                icon: "🎯",
+                title: "Higher Engagement",
+                description:
+                  "Contextual relevance leads to increased user interaction and click-through rates.",
+              },
+              {
+                icon: "🔍",
+                title: "Precise Targeting",
+                description:
+                  "AI-driven ads match user intent, improving ad effectiveness.",
+              },
+              {
+                icon: "📈",
+                title: "Better ROI",
+                description:
+                  "Improved relevance and engagement lead to higher return on ad spend.",
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="bg-secondary dark:bg-[#1C1C1C] border-secondary dark:border-[#262626] border p-4 rounded-lg flex flex-col gap-2"
+              >
+                <div className="text-2xl mb-4">{item.icon}</div>
+                <h3 className="font-semibold mb-1">{item.title}</h3>
+                <p className="text-sm">{item.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <div className="font-semibold">How does it work?</div>
+        <div className="flex flex-col gap-2 max-w-xl w-full">
+          <div className="text-2xl font-semibold">
+            Ads that enhance the app experience.
+          </div>
           <span>
-            MadLad ads are nested in the LLM response. We take the context of
-            the query or conversation & make sure the brand&apos;s mention is
-            highly relevant to the user&apos;s current interaction with the
-            application.
-            <br />
-            <br />
-            MadLad ads feel natural. They don&apos;t look like ads, they look
-            like responses. The result is a more streamlined experience for the
-            user, and a better outcome for the advertiser.
+            Your app should not sacrifice user experience for ads. MadLad ads
+            enhance the app experience, not degrade it.
           </span>
+
+          <div className="flex flex-col gap-4 mt-6 p-4">
+            <ChatBubble
+              side="right"
+              content="What kind of product should I get?"
+            />
+            <ChatBubble
+              side="left"
+              content={
+                <>
+                  Based on your interests, I&apos;d recommend the new XYZ
+                  Smartwatch. It has great fitness tracking features and long
+                  battery life <sub className="text-xs">Ad</sub>
+                </>
+              }
+            />
+            <ChatBubble side="right" content="Great, thank you!" />
+          </div>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <div className="font-semibold">Who are we?</div>
+        <div className="flex flex-col gap-2 max-w-xl w-full">
+          <div className="text-2xl font-semibold">Who are we?</div>
           <span>
             We are a team of engineers, designers and thinkers.
             <br />
@@ -115,10 +228,8 @@ export default function Home() {
           </span>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <div className="font-semibold">
-            I have more questions. How can I talk to you?
-          </div>
+        <div className="flex flex-col gap-2 max-w-xl w-full">
+          <div className="text-2xl font-semibold">Still have questions?</div>
           <span>
             <a
               className="flex items-center gap-2 hover:underline hover:underline-offset-4"
@@ -134,10 +245,10 @@ export default function Home() {
 
       <footer className="flex flex-col items-center justify-between w-full max-w-xl mt-12 gap-10 text-slate-500">
         <div className="flex items-center justify-between w-full">
-          <span className="flex items-center gap-2 hover:underline hover:underline-offset-4">
-            KOAH Labs 2024 — San Francisco
+          <span className="flex flex-col sm:flex-row items-start gap-2 hover:underline hover:underline-offset-4 text-center sm:text-left">
+            <span>KOAH Labs 2024</span>
+            <span>San Francisco</span>
           </span>
-
           <div className="flex grow-1" />
 
           <div className="flex items-center gap-4">
@@ -167,51 +278,14 @@ export default function Home() {
               <Model />
             </Suspense>
             <OrbitControls />
-            {isDarkMode ? (
-              <AsciiRenderer fgColor="white" bgColor="#0a0a0a" />
-            ) : (
-              <AsciiRenderer fgColor="black" bgColor="white" />
-            )}
+            <AsciiRenderer
+              fgColor={isDarkTheme ? "white" : "black"}
+              bgColor={isDarkTheme ? "#121212" : "white"}
+              key={isDarkTheme.toString()} // Add this line to force re-render when theme changes
+            />
           </Canvas>
         </div>
       </footer>
-
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent aria-describedby="request-demo-dialog-description">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              sendSlackMessage();
-            }}
-          >
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col">
-                <DialogTitle>See how MadLad works</DialogTitle>
-                <span className="text-slate-500 mt-1">
-                  Request a demo to check out MadLad in action
-                </span>
-              </div>
-
-              <div className="flex flex-col items-start gap-2">
-                <span className="font-medium text-sm">Email</span>
-                <Input
-                  placeholder="corporate@email.com"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-
-              <div className="flex gap-2">
-                <Button variant="outline">Cancel</Button>
-                <Button type="submit">
-                  {isLoading ? <Loader2 className="animate-spin" /> : "Submit"}
-                </Button>
-              </div>
-            </div>
-          </form>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
