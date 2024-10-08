@@ -8,6 +8,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import Marquee from "react-fast-marquee";
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 function Carousel() {
   // const [width, setWidth] = useState(700);
@@ -85,6 +88,8 @@ function ChatBubble({
 
 export default function Home() {
   const { systemTheme } = useTheme();
+  const [email, setEmail] = useState("");
+
   const [currentWord, setCurrentWord] = useState("text");
 
   useEffect(() => {
@@ -97,6 +102,30 @@ export default function Home() {
 
     return () => clearInterval(intervalId);
   }, []);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    if (email) {
+      try {
+        const response = await fetch("/api/slack", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        if (response.ok) {
+          toast.success("Subscribed to newsletter successfully");
+        } else {
+          toast.error("Failed to subscribe to newsletter");
+        }
+      } catch {
+        toast.error("Failed to subscribe to newsletter");
+      }
+    }
+  }
 
   return (
     <div className="flex flex-col items-center justify-items-center font-[family-name:var(--font-geist-sans)] overflow-y-auto mt-10 px-4">
@@ -134,7 +163,7 @@ export default function Home() {
           </span>
 
           <div className="flex gap-2 text-sm mt-8">
-            <button className="flex rounded-full font-medium transition-colors items-center justify-center bg-foreground text-accent hover:bg-[#383838] dark:hover:bg-[#ccc] sm:h-10 h-8 px-4 sm:w-fit">
+            <button className="flex rounded-full text-lg font-medium transition-colors items-center justify-center bg-foreground text-accent hover:bg-[#383838] dark:hover:bg-[#ccc] sm:h-12 h-10 px-6 sm:w-fit">
               Get Started
             </button>
           </div>
@@ -211,7 +240,7 @@ export default function Home() {
                 <>
                   Based on your interests, I&apos;d recommend the new XYZ
                   Smartwatch. It has great fitness tracking features and long
-                  battery life <sub className="text-xs">Ad</sub>
+                  battery life. <sub className="text-xs">Ad</sub>
                 </>
               }
             />
@@ -240,6 +269,29 @@ export default function Home() {
               team@koahlabs.com
             </a>
           </span>
+        </div>
+
+        <div className="flex flex-col gap-2 items-center max-w-xl w-full bg-secondary dark:bg-[#1C1C1C] border-secondary dark:border-[#262626] p-8 rounded-lg">
+          <div className="text-xl font-semibold">
+            Stay up to date with Madlads
+          </div>
+          <span className="text-muted-foreground">
+            Subscribe to our newsletter to get the latest news.
+          </span>
+
+          <form
+            className="flex w-full max-w-sm items-center my-4 gap-2"
+            onSubmit={handleSubmit}
+          >
+            <Input
+              type="email"
+              placeholder="Enter your email"
+              className="h-11"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Button type="submit">Subscribe</Button>
+          </form>
         </div>
       </main>
 
