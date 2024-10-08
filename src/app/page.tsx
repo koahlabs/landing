@@ -7,23 +7,24 @@ import Model from "./Model";
 import { motion, AnimatePresence } from "framer-motion";
 import Marquee from "react-fast-marquee";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 function Carousel() {
-  const [width, setWidth] = useState(700);
-  const [height, setHeight] = useState(500);
+  // const [width, setWidth] = useState(700);
+  // const [height, setHeight] = useState(500);
 
-  useEffect(() => {
-    const handleResize = () => {
-      const isMobile = window.innerWidth < 768;
-      setWidth(isMobile ? 350 : 700);
-      setHeight(isMobile ? 250 : 500);
-    };
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     const isMobile = window.innerWidth < 768;
+  //     setWidth(isMobile ? 350 : 700);
+  //     setHeight(isMobile ? 250 : 500);
+  //   };
 
-    handleResize(); // Set initial size
-    window.addEventListener("resize", handleResize);
+  //   handleResize(); // Set initial size
+  //   window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   return (
     <Marquee style={{ width: "100%" }}>
@@ -45,9 +46,9 @@ function Carousel() {
           <Image
             src={item.src}
             alt={item.alt}
-            width={width}
-            height={height}
-            style={{ width: width, height: height }}
+            width={700}
+            height={500}
+            style={{ width: 700, height: 500 }}
           />
           <span className="text-muted-foreground text-sm sm:text-base">
             {item.caption}
@@ -83,7 +84,7 @@ function ChatBubble({
 }
 
 export default function Home() {
-  const isDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const { systemTheme } = useTheme();
   const [currentWord, setCurrentWord] = useState("text");
 
   useEffect(() => {
@@ -278,9 +279,9 @@ export default function Home() {
             </Suspense>
             <OrbitControls />
             <AsciiRenderer
-              fgColor={isDarkTheme ? "white" : "black"}
-              bgColor={isDarkTheme ? "#121212" : "white"}
-              key={isDarkTheme.toString()} // Add this line to force re-render when theme changes
+              fgColor={systemTheme === "dark" ? "white" : "black"}
+              bgColor={systemTheme === "dark" ? "#121212" : "white"}
+              key={systemTheme} // Add this line to force re-render when theme changes
             />
           </Canvas>
         </div>
