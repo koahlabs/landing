@@ -4,7 +4,6 @@ import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { AsciiRenderer, OrbitControls } from "@react-three/drei";
 import Model from "./Model";
-import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
 import Marquee from "react-fast-marquee";
 import Image from "next/image";
