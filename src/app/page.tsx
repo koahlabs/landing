@@ -112,7 +112,16 @@ export default function Home() {
       <main className="flex flex-col gap-20 justify-center items-center w-full">
         <header className="flex items-center justify-center w-full fixed top-0 py-4 z-10 bg-card px-4 sm:px-0">
           <div className="flex items-center gap-2 max-w-xl w-full justify-between">
-            <div className="text-2xl font-medium">MadLad</div>
+            <div className="flex items-center gap-2">
+              <Image
+                src="/logo.svg"
+                alt="KOAH"
+                width={32}
+                height={32}
+                className={systemTheme === "light" ? "invert" : ""}
+              />
+              <div className="text-2xl font-medium">KOAH</div>
+            </div>
             <button className="rounded-full text-sm font-medium transition-colors bg-foreground text-accent hover:bg-[#383838] dark:hover:bg-[#ccc] h-8 px-4">
               Get Started
             </button>
@@ -152,7 +161,7 @@ export default function Home() {
         <div className="flex flex-col gap-8 max-w-xl w-full">
           <div className="font-medium text-3xl">Ads that feel like a part of the conversation.</div>
           <span>
-            MadLad ads feel natural. They don&apos;t look like ads, they look like responses. The
+            KOAH ads feel natural. They don&apos;t look like ads, they look like responses. The
             result is a more streamlined experience for the user, and a better outcome for the
             advertiser.
             <br />
@@ -196,7 +205,7 @@ export default function Home() {
         <div className="flex flex-col gap-2 max-w-xl w-full">
           <div className="text-2xl font-semibold">Ads that enhance the app experience.</div>
           <span>
-            Your app should not sacrifice user experience for ads. MadLad ads enhance the app
+            Your app should not sacrifice user experience for ads. KOAH ads enhance the app
             experience, not degrade it.
           </span>
 
@@ -240,7 +249,7 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-2 items-center max-w-xl w-full bg-secondary dark:bg-[#1C1C1C] border-secondary dark:border-[#262626] p-8 rounded-lg">
-          <div className="text-xl font-semibold">Stay up to date with Madlads</div>
+          <div className="text-xl font-semibold">Stay up to date with KOAH</div>
           <span className="text-muted-foreground">
             Subscribe to our newsletter to get the latest news.
           </span>

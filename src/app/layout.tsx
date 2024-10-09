@@ -9,8 +9,11 @@ import PostHogPageView from "./pageview";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MadLad",
+  title: "KOAH",
   description: "AI-native advertising",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -20,6 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
+
       <body
         className={`${inter.className} antialiased font-sans tracking-tighter`}
       >

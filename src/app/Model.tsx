@@ -14,7 +14,7 @@ export default function Model() {
   return (
     <group>
       <Text ref={textRef} position={[0, 0, 0]} fontSize={8} textAlign="center">
-        Madlad
+        KOAH
       </Text>
     </group>
   );
