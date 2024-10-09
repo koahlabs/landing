@@ -39,26 +39,16 @@ function Carousel() {
             style={{ width: 700, height: 500 }}
             priority={true}
           />
-          <span className="text-muted-foreground text-sm sm:text-base">
-            {item.caption}
-          </span>
+          <span className="text-muted-foreground text-sm sm:text-base">{item.caption}</span>
         </div>
       ))}
     </Marquee>
   );
 }
 
-function ChatBubble({
-  side,
-  content,
-}: {
-  side: "left" | "right";
-  content: React.ReactNode;
-}) {
+function ChatBubble({ side, content }: { side: "left" | "right"; content: React.ReactNode }) {
   return (
-    <div
-      className={`flex ${side === "left" ? "justify-start" : "justify-end"}`}
-    >
+    <div className={`flex ${side === "left" ? "justify-start" : "justify-end"}`}>
       <div
         className={`p-3 max-w-xs ${
           side === "left"
@@ -148,9 +138,7 @@ export default function Home() {
             AI Applications
           </h1>
           <br />
-          <span className="text-lg">
-            Let&apos;s unlock a new chapter in advertising.
-          </span>
+          <span className="text-lg">Let&apos;s unlock a new chapter in advertising.</span>
 
           <div className="flex gap-2 text-sm mt-8">
             <button className="flex rounded-full text-lg font-medium transition-colors items-center justify-center bg-foreground text-accent hover:bg-[#383838] dark:hover:bg-[#ccc] sm:h-12 h-10 px-6 sm:w-fit">
@@ -162,13 +150,11 @@ export default function Home() {
         <Carousel />
 
         <div className="flex flex-col gap-8 max-w-xl w-full">
-          <div className="font-medium text-3xl">
-            Ads that feel like a part of the conversation.
-          </div>
+          <div className="font-medium text-3xl">Ads that feel like a part of the conversation.</div>
           <span>
-            MadLad ads feel natural. They don&apos;t look like ads, they look
-            like responses. The result is a more streamlined experience for the
-            user, and a better outcome for the advertiser.
+            MadLad ads feel natural. They don&apos;t look like ads, they look like responses. The
+            result is a more streamlined experience for the user, and a better outcome for the
+            advertiser.
             <br />
           </span>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
@@ -176,8 +162,7 @@ export default function Home() {
               {
                 icon: "💡",
                 title: "Seamless Integration",
-                description:
-                  "Ads blend naturally with AI responses, enhancing user experience.",
+                description: "Ads blend naturally with AI responses, enhancing user experience.",
               },
               {
                 icon: "🎯",
@@ -188,14 +173,12 @@ export default function Home() {
               {
                 icon: "🔍",
                 title: "Precise Targeting",
-                description:
-                  "AI-driven ads match user intent, improving ad effectiveness.",
+                description: "AI-driven ads match user intent, improving ad effectiveness.",
               },
               {
                 icon: "📈",
                 title: "Better ROI",
-                description:
-                  "Improved relevance and engagement lead to higher return on ad spend.",
+                description: "Improved relevance and engagement lead to higher return on ad spend.",
               },
             ].map((item, index) => (
               <div
@@ -211,26 +194,21 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-2 max-w-xl w-full">
-          <div className="text-2xl font-semibold">
-            Ads that enhance the app experience.
-          </div>
+          <div className="text-2xl font-semibold">Ads that enhance the app experience.</div>
           <span>
-            Your app should not sacrifice user experience for ads. MadLad ads
-            enhance the app experience, not degrade it.
+            Your app should not sacrifice user experience for ads. MadLad ads enhance the app
+            experience, not degrade it.
           </span>
 
           <div className="flex flex-col gap-4 mt-6 p-4">
-            <ChatBubble
-              side="right"
-              content="What kind of product should I get?"
-            />
+            <ChatBubble side="right" content="What kind of product should I get?" />
             <ChatBubble
               side="left"
               content={
                 <>
-                  Based on your interests, I&apos;d recommend the new XYZ
-                  Smartwatch. It has great fitness tracking features and long
-                  battery life. <sub className="text-xs">Ad</sub>
+                  Based on your interests, I&apos;d recommend the new XYZ Smartwatch. It has great
+                  fitness tracking features and a long battery life.{" "}
+                  <sub className="text-xs">Ad</sub>
                 </>
               }
             />
@@ -241,7 +219,7 @@ export default function Home() {
         <div className="flex flex-col gap-2 max-w-xl w-full">
           <div className="text-2xl font-semibold">Who are we?</div>
           <span>
-            We are a team of engineers, designers and thinkers.
+            We are a team of engineers, designers, and thinkers.
             <br />
             We are based in San Francisco and are backed by South Park Commons.
           </span>
@@ -262,17 +240,12 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-2 items-center max-w-xl w-full bg-secondary dark:bg-[#1C1C1C] border-secondary dark:border-[#262626] p-8 rounded-lg">
-          <div className="text-xl font-semibold">
-            Stay up to date with Madlads
-          </div>
+          <div className="text-xl font-semibold">Stay up to date with Madlads</div>
           <span className="text-muted-foreground">
             Subscribe to our newsletter to get the latest news.
           </span>
 
-          <form
-            className="flex w-full max-w-sm items-center my-4 gap-2"
-            onSubmit={handleSubmit}
-          >
+          <form className="flex w-full max-w-sm items-center my-4 gap-2" onSubmit={handleSubmit}>
             <Input
               type="email"
               placeholder="Enter your email"
