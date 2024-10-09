@@ -37,6 +37,7 @@ function Carousel() {
             width={700}
             height={500}
             style={{ width: 700, height: 500 }}
+            priority={true}
           />
           <span className="text-muted-foreground text-sm sm:text-base">
             {item.caption}
